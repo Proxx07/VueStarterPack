@@ -27,7 +27,7 @@ const {
       </div>
 
       <div class="buttons">
-        <button v-if="user.id" :disabled="userLoading" @click.prevent="deleteHandler(user.id)">
+        <button v-if="user.id" :disabled="userLoading" @click.prevent="deleteHandler">
           {{userLoading ? '...' : 'Удалить'}}
         </button>
         <button :disabled="userLoading" type="submit">
