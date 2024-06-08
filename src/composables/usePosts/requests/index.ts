@@ -1,21 +1,33 @@
 import $axios from "@/api";
-import {ref} from "vue";
-import {IUser} from "../types";
-import {setUser} from "../models";
+import {computed, ref} from "vue";
+import {IPost, IPostFilter} from "../types";
+import {setPost} from "../models";
 
 import {useFetchStates} from "@/composables/useFetchStates";
-export const useUserRequests = () => {
-  const endpoint = '/users';
+import {useFilter} from "@/composables/useFilter";
+
+export const usePostRequests = () => {
+  const endpoint = '/posts';
   const {loading, sending, sended, deleting, deleted} = useFetchStates();
+  const {page, limit} = useFilter();
 
-  const users = ref<IUser[]>([]);
-  const user = ref<IUser>(setUser());
+  const posts = ref<IPost[]>([]);
+  const post = ref<IPost>(setPost());
 
-  const getUsers = async () => {
+  const params = computed<IPostFilter>(() => {
+    return {
+      _page: page.value,
+      _limit: limit.value,
+    }
+  });
+
+  const getList = async () => {
     try {
       loading.value = true
-      const result = await $axios.get<IUser[]>(endpoint)
-      users.value = result.data
+      await new Promise(resolve => setTimeout(resolve, 2000))
+
+      const result = await $axios.get<IPost[]>(endpoint, {params: params.value})
+      posts.value = result.data
     }
     catch (e) {
       console.log(e) // add error handling toast or something else
@@ -24,11 +36,12 @@ export const useUserRequests = () => {
       loading.value = false
     }
   }
-  const getUser = async (id: number) => {
+
+  const getItem = async (id: number) => {
     try {
       loading.value = true
-      const result = await $axios.get<IUser>(`${endpoint}/${id}`)
-      user.value = setUser(result.data)
+      const result = await $axios.get<IPost>(`${endpoint}/${id}`)
+      post.value = setPost(result.data)
     }
     catch (e) {
       console.log(e) // add error handling toast or something else
@@ -38,14 +51,14 @@ export const useUserRequests = () => {
     }
   }
 
-  const postUser = async () => {
+  const postItem = async () => {
     try {
       sending.value = true
       await new Promise(resolve => setTimeout(resolve, 2000))
 
       await $axios.request({
-        method: user.value.id ? 'put' : 'post',
-        url: `${endpoint}/${user.value?.id ?? ''}`
+        method: post.value.id ? 'put' : 'post',
+        url: `${endpoint}/${post.value?.id ?? ''}`
       })
 
       sended.value = true
@@ -55,11 +68,10 @@ export const useUserRequests = () => {
     }
     finally {
       sending.value = false
-      await getUsers() // optional
     }
   }
 
-  const deleteUser = async (id: number) => {
+  const deleteItem = async (id: number) => {
     try {
       deleting.value = true
       await new Promise(resolve => setTimeout(resolve, 2000))
@@ -71,13 +83,14 @@ export const useUserRequests = () => {
     }
     finally {
       deleting.value = false
-      await getUsers() // optional
     }
   }
 
   return {
-    user,
-    users,
+    post,
+    posts,
+    page,
+
 
     loading,
     sending,
@@ -85,9 +98,9 @@ export const useUserRequests = () => {
     deleting,
     deleted,
 
-    getUsers,
-    getUser,
-    postUser,
-    deleteUser,
+    getList,
+    getItem,
+    postItem,
+    deleteItem,
   }
 }
