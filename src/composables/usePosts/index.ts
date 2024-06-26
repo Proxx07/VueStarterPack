@@ -1,7 +1,7 @@
 import {usePostRequests} from "./requests";
 import {computed, onBeforeMount} from "vue";
 import {IPost} from "./types";
-import {setPost} from "@/composables/usePosts/models";
+import {setPost} from "./models";
 export const usePosts = () => {
   const {
     loading, posts, post, page, getList,

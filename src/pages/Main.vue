@@ -108,10 +108,10 @@ form {
   input {
     width: 100%;
     background: none;
-    color: var(--black);
+    color: var(--primary-color);
     padding: 1rem;
     font-size: 2rem;
-    border: 1px solid var(--black);
+    border: 1px solid currentColor;
     border-radius: .5rem;
     margin-bottom: 1rem;
   }
