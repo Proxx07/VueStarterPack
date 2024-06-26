@@ -8,6 +8,11 @@ const openDefault = async () => {
   const title = 'Ожидание подтверждения действия'
   const subtitle = 'Доп текст'
   resDefault.value = await $confirm.default({title, subtitle})
+  if (resDefault.value) {
+    console.log('Пользователь потдвердил')
+  } else {
+    console.log('Пользователь отклонил')
+  }
 }
 
 const openSuccess = async () => {
@@ -41,8 +46,9 @@ const openError = async () => {
   <h1>Confirmations test</h1>
   <div class="buttons">
 
+    default-result: {{resDefault}}
     <button @click="openDefault">
-      Default {{resDefault}}
+      Default
     </button>
 
     <button @click="openSuccess">
@@ -75,6 +81,7 @@ h1 {
   gap: 1.2rem;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 }
 
 button {

@@ -8,5 +8,4 @@ const router = createRouter({
 });
 
 router.beforeEach(layoutMiddleware)
-
 export default router;

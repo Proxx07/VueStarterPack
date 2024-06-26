@@ -18,7 +18,7 @@ const background = computed(() => ConfirmationTypesColor[props.type]);
   <h2 class="subtitle">{{subtitle}}</h2>
 
   <div class="buttons">
-    <button @click="emit('accept')">Accept</button>
+    <button @click="emit('accept')">{{type === 'default' ? 'Accept' : 'Оkay'}}</button>
     <button v-if="type === 'default'" @click="emit('reject')">Reject</button>
   </div>
 </template>
