@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
 
     server: {
       open: true,
+      port: 1234,
     },
 
     css: {

@@ -3,10 +3,12 @@ import type { TLangs } from '@/plugins/i18n/models';
 import { Button } from 'primevue';
 import { useI18n } from 'vue-i18n';
 import { locales } from '@/plugins/i18n';
+import { setCurrentLocale } from '@/plugins/i18n/models';
 
 const { locale } = useI18n();
 
 const setLang = (lang: TLangs) => {
+  setCurrentLocale(lang);
   locale.value = lang;
 };
 </script>

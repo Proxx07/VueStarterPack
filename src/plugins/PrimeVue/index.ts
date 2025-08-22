@@ -3,6 +3,7 @@ import type { PrimeVueConfiguration } from 'primevue/config';
 import type { RendererElement, RendererNode, VNode } from 'vue';
 import { definePreset } from '@primeuix/styled';
 import Aura from '@primeuix/themes/aura';
+import { checkboxConfig } from '@/plugins/PrimeVue/checkbox';
 import { inputFieldPt } from '@/plugins/PrimeVue/input';
 import { buttonConfig, buttonPt } from './button';
 
@@ -107,6 +108,8 @@ const customPreset = definePreset(Aura, {
         dark: buttonConfig(),
       },
     },
+
+    checkbox: checkboxConfig(),
   },
 });
 

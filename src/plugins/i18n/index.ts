@@ -3,10 +3,10 @@ import { createI18n } from 'vue-i18n';
 import en from './locales/en';
 import ru from './locales/ru';
 import uz from './locales/uz';
-import { DEFAULT_LANGUAGE } from './models';
+import { DEFAULT_LANGUAGE, getCurrentLocale } from './models';
 
 export const i18n = createI18n<[MessageSchema], 'ru-RU' | 'en-US' | 'uz-UZ'>({
-  locale: DEFAULT_LANGUAGE,
+  locale: getCurrentLocale(),
   fallbackLocale: DEFAULT_LANGUAGE,
   messages: {
     'ru-RU': ru,

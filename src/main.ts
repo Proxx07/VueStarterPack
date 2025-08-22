@@ -3,6 +3,7 @@ import PrimeVue from 'primevue/config';
 import { createApp } from 'vue';
 
 import App from '@/App.vue';
+import { formRules } from '@/composables/Form/models';
 import { i18n } from '@/plugins/i18n';
 import { options } from '@/plugins/PrimeVue';
 import router from '@/router/router.ts';
@@ -20,3 +21,4 @@ app
   .mount('#app');
 
 app.config.globalProperties.$tl = i18n.global.t;
+app.config.globalProperties.$formRules = formRules;

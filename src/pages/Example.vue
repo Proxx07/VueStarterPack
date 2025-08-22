@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { Button, InputNumber, InputText } from 'primevue';
-import { ref } from 'vue';
+import { Button, Checkbox, RadioButton } from 'primevue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { marker } from '@/assets/icons';
+import VForm from '@/components/Form/VForm.vue';
+import VInputText from '@/components/Form/VInputText.vue';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
+import { formRules } from '@/composables/Form/models';
 import { $confirm } from '@/plugins/confirmation.ts';
 
 const { t } = useI18n();
@@ -34,6 +37,16 @@ const errorConfirm = async () => {
 };
 
 const loading = ref(true);
+const text = ref('');
+const text2 = ref('');
+const text3 = ref('');
+const secondField = ref(false);
+const setThirdFieldRequired = ref(false);
+
+const thirdFieldRules = computed(() => {
+  if (!setThirdFieldRequired.value) return [];
+  return [formRules.required()];
+});
 </script>
 
 <template>
@@ -54,22 +67,56 @@ const loading = ref(true);
     <Button label="Secondary large" size="large" severity="secondary" />
 
     <hr>
-
     <Button label="svg icon" size="large" :icon="marker" severity="success" />
     <Button label="Check icon fill" size="large" :icon="marker" icon-pos="right" severity="info" icon-class="no-fill" />
     <Button label="Loading test" severity="help" size="large" :loading="loading" />
-
+    <RadioButton value="Small" size="large" variant="filled" />
+    <RadioButton value="Small" size="large" variant="outlined" />
     <hr>
 
     <Button label="Default confirmation" severity="warn" @click="defaultConfirm" />
     <Button label="Info confirmation" severity="info" @click="infoConfirm" />
     <Button label="Success confirmation" severity="success" @click="successConfirm" />
     <Button label="Error confirmation" severity="danger" @click="errorConfirm" />
-  </div>
+    <hr>
 
-  <div style="padding: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;">
-    <InputText fluid placeholder="Search" />
-    <InputNumber />
+    <VForm @submit-form="() => { console.log('OK!') }">
+      <div>
+        <div class="form-wrapper">
+          <VInputText
+            v-model="text"
+            placeholder="Text-field-1"
+            :rules="[$formRules.required(), $formRules.minLength(10)]"
+          />
+
+          <VInputText
+            v-if="secondField"
+            v-model="text2"
+            placeholder="Text-field-2"
+            :rules="[$formRules.required()]"
+          />
+          <template v-else>
+            <div class="font-16-b" style="text-align: center">
+              Second field!
+            </div>
+          </template>
+
+          <VInputText
+            v-model="text3"
+            placeholder="Text-field-3"
+            :rules="thirdFieldRules"
+          />
+        </div>
+
+        <div style="margin: 1rem 0; font: var(--font-16-r)">
+          <Checkbox v-model="secondField" binary /> Show second field
+
+          <Checkbox v-model="setThirdFieldRequired" binary style="margin-left: 1rem;" /> Set third field required
+        </div>
+
+        <Button type="submit" label="Submit" />
+      </div>
+    </VForm>
   </div>
 </template>
 
@@ -83,5 +130,11 @@ const loading = ref(true);
   hr {
     width: 100%;
   }
+}
+
+.form-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 </style>
