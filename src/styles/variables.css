@@ -18,6 +18,7 @@
     --font-24-r: normal 500 2.4rem/1 var(--primary-font-r);
     --font-26-r: normal 500 2.6rem/1 var(--primary-font-r);
     --font-28-r: normal 500 2.8rem/1 var(--primary-font-r);
+    --font-30-r: normal 500 3.0rem/1 var(--primary-font-r);
 
     --font-10-b: normal 600 1.0rem/1 var(--primary-font-b);
     --font-12-b: normal 600 1.2rem/1 var(--primary-font-b);
@@ -81,6 +82,9 @@ html {
 .font-28-r {
     font: var(--font-28-r) !important;
 }
+.font-30-r {
+    font: var(--font-30-r) !important;
+}
 
 .font-10-b {
     font: var(--font-10-b) !important;
@@ -111,4 +115,9 @@ html {
 }
 .font-28-b {
     font: var(--font-28-b) !important;
+}
+
+.w-full {
+    width: 100%;
+    max-width: 100%;
 }

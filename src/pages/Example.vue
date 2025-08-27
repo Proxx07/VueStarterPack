@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { Button, Checkbox, RadioButton } from 'primevue';
+import { Button, Checkbox, Message, SelectButton } from 'primevue';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { marker } from '@/assets/icons';
+import FormLabel from '@/components/Form/FormLabel.vue';
 import VForm from '@/components/Form/VForm.vue';
+import VInputMask from '@/components/Form/VInputMask.vue';
+import VInputNumber from '@/components/Form/VInputNumber.vue';
 import VInputText from '@/components/Form/VInputText.vue';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
 import { formRules } from '@/composables/Form/models';
@@ -36,26 +39,39 @@ const errorConfirm = async () => {
   console.log('After button click. Error');
 };
 
+const selectButtonOptions = ['light', 'dark'];
 const loading = ref(true);
+
 const text = ref('');
 const text2 = ref('');
 const text3 = ref('');
+const numberFieldValue = ref(0);
+const maskFieldValue = ref('');
+const maskFieldValue2 = ref('');
+
 const secondField = ref(false);
 const setThirdFieldRequired = ref(false);
-
 const thirdFieldRules = computed(() => {
   if (!setThirdFieldRequired.value) return [];
   return [formRules.required()];
 });
+
+const handleSubmit = () => {
+  alert('Form submited');
+};
 </script>
 
 <template>
   <div class="page">
-    <LangSwitcher />
-    {{ $tl('page.example', { name: '123' }) }}
-    <h1>
-      {{ $tl('hello') }}
-    </h1>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <LangSwitcher />
+      {{ $tl('page.example', { name: '123' }) }}
+      <h1>
+        {{ $tl('hello') }}
+      </h1>
+
+      <SelectButton :options="selectButtonOptions" />
+    </div>
     <hr>
 
     <Button label="Primary small" size="small" />
@@ -70,8 +86,6 @@ const thirdFieldRules = computed(() => {
     <Button label="svg icon" size="large" :icon="marker" severity="success" />
     <Button label="Check icon fill" size="large" :icon="marker" icon-pos="right" severity="info" icon-class="no-fill" />
     <Button label="Loading test" severity="help" size="large" :loading="loading" />
-    <RadioButton value="Small" size="large" variant="filled" />
-    <RadioButton value="Small" size="large" variant="outlined" />
     <hr>
 
     <Button label="Default confirmation" severity="warn" @click="defaultConfirm" />
@@ -80,9 +94,14 @@ const thirdFieldRules = computed(() => {
     <Button label="Error confirmation" severity="danger" @click="errorConfirm" />
     <hr>
 
-    <VForm @submit-form="() => { console.log('OK!') }">
-      <div>
-        <div class="form-wrapper">
+    <Message severity="info">
+      Info message example
+    </Message>
+    <hr>
+
+    <VForm @submit-form="handleSubmit">
+      <div class="form-wrapper">
+        <div class="field-group">
           <VInputText
             v-model="text"
             placeholder="Text-field-1"
@@ -96,7 +115,7 @@ const thirdFieldRules = computed(() => {
             :rules="[$formRules.required()]"
           />
           <template v-else>
-            <div class="font-16-b" style="text-align: center">
+            <div class="font-16-b w-full" style="text-align: center;">
               Second field!
             </div>
           </template>
@@ -108,14 +127,48 @@ const thirdFieldRules = computed(() => {
           />
         </div>
 
-        <div style="margin: 1rem 0; font: var(--font-16-r)">
-          <Checkbox v-model="secondField" binary /> Show second field
-
-          <Checkbox v-model="setThirdFieldRequired" binary style="margin-left: 1rem;" /> Set third field required
+        <div class="field-group">
+          <VInputNumber
+            v-model="numberFieldValue"
+            :min="0"
+            :rules="[$formRules.required(), $formRules.minValue(20)]"
+            show-buttons
+            button-layout="horizontal"
+            placeholder="Number field"
+          />
+          <VInputNumber
+            v-model="numberFieldValue"
+            :min="0"
+            :rules="[$formRules.required(), $formRules.minValue(10)]"
+            show-buttons
+            placeholder="Number field"
+          />
         </div>
 
-        <Button type="submit" label="Submit" />
+        <div class="field-group">
+          <VInputMask
+            v-model="maskFieldValue"
+            mask="99-99-99"
+            placeholder="Numbers with mask"
+            :rules="[$formRules.required()]"
+          />
+          <VInputMask
+            v-model="maskFieldValue2"
+            mask="aa-aa-aa"
+            placeholder="Letters with mask"
+          />
+        </div>
+        <div class="field-group">
+          <FormLabel label="Show second field" for="check-1">
+            <Checkbox v-model="secondField" binary input-id="check-1" />
+          </FormLabel>
+
+          <FormLabel label="Set third field required" for="check-2">
+            <Checkbox v-model="setThirdFieldRequired" binary input-id="check-2" />
+          </FormLabel>
+        </div>
       </div>
+      <Button type="submit" label="Submit" fluid style="margin-top: 1.6rem" />
     </VForm>
   </div>
 </template>
@@ -134,7 +187,11 @@ const thirdFieldRules = computed(() => {
 
 .form-wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.field-group {
+  display: flex;
   gap: 1rem;
 }
 </style>

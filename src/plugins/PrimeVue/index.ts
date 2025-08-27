@@ -5,6 +5,8 @@ import { definePreset } from '@primeuix/styled';
 import Aura from '@primeuix/themes/aura';
 import { checkboxConfig } from '@/plugins/PrimeVue/checkbox';
 import { inputFieldPt } from '@/plugins/PrimeVue/input';
+import { inputNumberConfig, inputNumberPt } from '@/plugins/PrimeVue/inputNumber';
+import { messageConfig } from '@/plugins/PrimeVue/message';
 import { buttonConfig, buttonPt } from './button';
 
 const customPreset = definePreset(Aura, {
@@ -109,7 +111,15 @@ const customPreset = definePreset(Aura, {
       },
     },
 
+    inputnumber: {
+      colorScheme: {
+        light: inputNumberConfig(),
+        dark: inputNumberConfig(),
+      },
+    },
+
     checkbox: checkboxConfig(),
+    message: messageConfig(),
   },
 });
 
@@ -122,6 +132,10 @@ export const options: PrimeVueConfiguration = {
     },
 
     inputtext: inputFieldPt(),
+
+    inputnumber(instance) {
+      return inputNumberPt(instance);
+    },
   },
 
   theme: {

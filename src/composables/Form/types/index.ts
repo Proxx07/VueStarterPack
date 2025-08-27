@@ -1,17 +1,18 @@
-import type { InputMaskProps, InputNumberProps, InputTextProps } from 'primevue';
 import type { ComputedRef, InjectionKey, Ref } from 'vue';
 
-export type FormRule = (value: string | number) => string | boolean;
+export type FormRule<V> = (value: V) => string | boolean;
 
 export const IS_VALIDATED: InjectionKey<Ref<boolean>> = Symbol('isValidated');
 export const ADD_FORM_VALIDATION_RULE: InjectionKey<(id: string, value: ComputedRef<boolean>) => () => boolean> = Symbol('addValidationToForm');
 
-interface IFormField {
+export interface IFormField<V extends string | number> {
   label?: string
-  rules?: Array<FormRule>
-  modelValue: string | number
+  rules?: Array<FormRule<V>>
+  modelValue: V
 }
 
-export type InputTextFieldProps = IFormField & /* @vue-ignore */ InputTextProps;
-export type InputNumberFieldProps = IFormField & /* @vue-ignore */ InputNumberProps;
-export type InputMaskFieldProps = IFormField & /* @vue-ignore */ InputMaskProps;
+export type InputFieldProps<V extends string | number, P> = IFormField<V> & /* @vue-ignore */ P;
+
+export interface IEmits<T> {
+  (e: 'update:modelValue', value: T): void
+}

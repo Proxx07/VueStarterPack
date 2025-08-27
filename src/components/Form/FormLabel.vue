@@ -3,15 +3,16 @@ import { Message } from 'primevue';
 
 const props = defineProps<{
   label?: string
+  for?: string
   errorMessage?: string
 }>();
 </script>
 
 <template>
   <div class="form-label">
-    <label v-if="props.label">{{ label }}</label>
+    <label v-if="props.label" :for="props.for">{{ label }}</label>
     <slot />
-    <Message v-if="errorMessage" severity="error" class="font-14-r">
+    <Message v-if="errorMessage" severity="error" class="w-full" size="small" variant="simple">
       {{ errorMessage }}
     </Message>
   </div>
@@ -23,5 +24,15 @@ const props = defineProps<{
   flex-direction: column;
   gap: 0.6rem;
   width: 100%;
+  label {
+    font: var(--font-14-r);
+    cursor: pointer;
+  }
+  &:has(input[type='checkbox']) {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 }
 </style>

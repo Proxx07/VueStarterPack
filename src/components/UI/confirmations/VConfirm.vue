@@ -47,7 +47,6 @@ const icon = computed(() => ConfirmationTypesIcon[props.type]);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    color: var(--black);
   }
   .header-wrapper {
     display: flex;
