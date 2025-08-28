@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Checkbox, Message, SelectButton } from 'primevue';
+import { Button, Checkbox, InputText, Message, Select, SelectButton } from 'primevue';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { marker } from '@/assets/icons';
@@ -10,6 +10,7 @@ import VInputNumber from '@/components/Form/VInputNumber.vue';
 import VInputText from '@/components/Form/VInputText.vue';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
 import { formRules } from '@/composables/Form/models';
+import { useThemeMode } from '@/composables/UI/useThemeMode.ts';
 import { $confirm } from '@/plugins/confirmation.ts';
 
 const { t } = useI18n();
@@ -39,7 +40,8 @@ const errorConfirm = async () => {
   console.log('After button click. Error');
 };
 
-const selectButtonOptions = ['light', 'dark'];
+const severities = ['error', 'secondary', 'info', 'success', 'warn', 'contrast'];
+
 const loading = ref(true);
 
 const text = ref('');
@@ -59,18 +61,21 @@ const thirdFieldRules = computed(() => {
 const handleSubmit = () => {
   alert('Form submited');
 };
+
+const { modeModel, modes } = useThemeMode();
 </script>
 
 <template>
   <div class="page">
-    <div style="display: flex; align-items: center; gap: 1rem;">
+    <div style="display: flex; align-items: center; gap: 1rem; width: 100%;">
       <LangSwitcher />
       {{ $tl('page.example', { name: '123' }) }}
-      <h1>
-        {{ $tl('hello') }}
-      </h1>
+      <h1> {{ $tl('hello') }} </h1>
 
-      <SelectButton :options="selectButtonOptions" />
+      <div style="margin-left: auto" />
+      <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="small" />
+      <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" />
+      <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="large" />
     </div>
     <hr>
 
@@ -83,9 +88,10 @@ const handleSubmit = () => {
     <Button label="Secondary large" size="large" severity="secondary" />
 
     <hr>
-    <Button label="svg icon" size="large" :icon="marker" severity="success" />
-    <Button label="Check icon fill" size="large" :icon="marker" icon-pos="right" severity="info" icon-class="no-fill" />
-    <Button label="Loading test" severity="help" size="large" :loading="loading" />
+    <Button label="svg icon" :icon="marker" severity="success" />
+    <Button label="Icon no-fill" :icon="marker" icon-pos="right" severity="info" icon-class="no-fill" />
+    <Button label="Icon fill-red" :icon="marker" icon-pos="top" severity="secondary" icon-color="red" />
+    <Button label="Loading test" severity="help" :loading="loading" />
     <hr>
 
     <Button label="Default confirmation" severity="warn" @click="defaultConfirm" />
@@ -94,10 +100,21 @@ const handleSubmit = () => {
     <Button label="Error confirmation" severity="danger" @click="errorConfirm" />
     <hr>
 
-    <Message severity="info">
-      Info message example
+    <Message v-for="type in severities" :key="type" :severity="type">
+      {{ type }} message example
     </Message>
+
     <hr>
+
+    <div class="field-group" style="align-items: center">
+      <InputText placeholder="Text-field-small" size="small" />
+      <InputText placeholder="Text-field-regular" />
+      <InputText placeholder="Text-field-large" size="large" />
+
+      <Select size="small" :options="severities" placeholder="Select small" />
+      <Select :options="severities" placeholder="Select" />
+      <Select size="large" :options="severities" placeholder="Select large" />
+    </div>
 
     <VForm @submit-form="handleSubmit">
       <div class="form-wrapper">

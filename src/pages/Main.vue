@@ -68,8 +68,8 @@ onBeforeUnmount(() => {
     <div v-if="videoError" class="error-wrapper">
       <h3>
         Не удалось запустить камеру. <br>
-        Попбробуйте обновить страницу. <br>
-        И убедитесь, что доступ к камере не ограничен.
+        Убедитесь, что доступ к камере не ограничен.<br>
+        И попбробуйте обновить страницу.
       </h3>
 
       <Button severity="primary" label="Обновить" size="large" :icon="reload" icon-pos="right" @click="reloadPage" />
@@ -81,7 +81,6 @@ onBeforeUnmount(() => {
 .main-page {
   flex-grow: 1;
   display: flex;
-  background: var(--secondary-500);
   width: 100%;
 }
 

@@ -3,11 +3,14 @@ import type { PrimeVueConfiguration } from 'primevue/config';
 import type { RendererElement, RendererNode, VNode } from 'vue';
 import { definePreset } from '@primeuix/styled';
 import Aura from '@primeuix/themes/aura';
-import { checkboxConfig } from '@/plugins/PrimeVue/checkbox';
-import { inputFieldPt } from '@/plugins/PrimeVue/input';
-import { inputNumberConfig, inputNumberPt } from '@/plugins/PrimeVue/inputNumber';
-import { messageConfig } from '@/plugins/PrimeVue/message';
 import { buttonConfig, buttonPt } from './button';
+import { cardConfig } from './card';
+import { checkboxConfig } from './checkbox';
+import { inputFieldPt } from './input';
+import { inputNumberConfig, inputNumberPt } from './inputNumber';
+import { messageConfig } from './message';
+import { selectConfig, selectPt } from './select';
+import { toggleButtonConfig, toggleButtonPt } from './toggleButton';
 
 const customPreset = definePreset(Aura, {
   primitive: {
@@ -80,6 +83,14 @@ const customPreset = definePreset(Aura, {
     formField: {
       paddingX: '1.6rem',
       paddingY: '2rem',
+      sm: {
+        paddingX: '1rem',
+        paddingY: '1.4rem',
+      },
+      lg: {
+        paddingX: '2rem',
+        paddingY: '2.3rem',
+      },
     },
 
     colorScheme: {
@@ -87,7 +98,7 @@ const customPreset = definePreset(Aura, {
         formField: {
           background: 'var(--secondary-500)',
           color: 'var(--black)',
-          placeholderColor: 'var(--secondary-900)',
+          placeholderColor: '{surface.800}',
         },
       },
 
@@ -95,7 +106,7 @@ const customPreset = definePreset(Aura, {
         formField: {
           background: '{zinc.900}',
           color: 'var(--white)',
-          placeholderColor: 'var(--secondary-50)',
+          placeholderColor: '{surface.600}',
         },
       },
     },
@@ -110,6 +121,12 @@ const customPreset = definePreset(Aura, {
         dark: buttonConfig(),
       },
     },
+
+    card: cardConfig(),
+
+    select: selectConfig(),
+
+    togglebutton: toggleButtonConfig(),
 
     inputnumber: {
       colorScheme: {
@@ -131,10 +148,19 @@ export const options: PrimeVueConfiguration = {
       return buttonPt(instance);
     },
 
-    inputtext: inputFieldPt(),
+    inputtext(instance) {
+      return inputFieldPt(instance);
+    },
+
+    togglebutton(instance) {
+      return toggleButtonPt(instance);
+    },
 
     inputnumber(instance) {
       return inputNumberPt(instance);
+    },
+    select(instance) {
+      return selectPt(instance);
     },
   },
 

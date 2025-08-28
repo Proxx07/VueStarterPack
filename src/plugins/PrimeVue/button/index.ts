@@ -41,6 +41,8 @@ export const buttonPt = (instance: VNode<RendererNode, RendererElement, ButtonPr
       ...((instance.props?.icon && instance.props?.icon.includes('<svg')) && {
         innerHTML: instance.props?.icon,
         classList: `p-button-icon-svg p-button-icon-${instance.props?.iconPos || 'left'} ${instance.props?.iconClass || ''}`,
+        // @ts-expect-error next-line
+        style: { color: instance.attrs['icon-color'] || 'currentColor' },
       }),
       ...((instance.props?.icon && !instance.props?.icon.includes('<svg')) && { class: instance.props?.icon }),
     },

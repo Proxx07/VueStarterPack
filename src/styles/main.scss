@@ -23,3 +23,19 @@ html {
 html:has(.face-id-page) {
   overflow: hidden;
 }
+
+
+::-webkit-scrollbar-track {
+  background-color: color-mix(in srgb,var(--secondary-400),transparent 84%);
+  border-radius: var(--radius-m);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: var(--radius-m);
+  background-color: var(--secondary-500);
+}

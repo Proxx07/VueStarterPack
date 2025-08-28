@@ -2,6 +2,7 @@ body {
   .p-dialog-mask {
     backdrop-filter: blur(3px);
   }
+
   .confirmation-dialog {
     max-width: 30rem;
     width: 100%;
@@ -32,6 +33,26 @@ body {
       }
     }
   }
+
+  .p-select {
+    --p-select-dropdown-width: 5rem;
+
+    --p-select-lg-font-size: 3rem;
+    --p-icon-size: 2.5rem;
+    --p-select-sm-font-size: 1.5rem;
+    &.p-select-sm {
+      --p-select-dropdown-width: 3.6rem;
+    }
+    &.p-select-lg {
+      --p-select-dropdown-width: 6rem;
+    }
+    .p-select-dropdown {
+      margin: -1px -1px -1px 0;
+      background: var(--primary-500);
+      color: var(--black);
+    }
+  }
+
   .size-4 {
     min-width: 4rem;
     min-height: 4rem;
