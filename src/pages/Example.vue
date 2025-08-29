@@ -58,7 +58,7 @@ const thirdFieldRules = computed(() => {
 });
 
 const handleSubmit = () => {
-  alert('Form submited');
+  $confirm.success({ title: 'Success', subtitle: 'Form submitted' });
 };
 
 const { modeModel, modes } = useThemeMode();

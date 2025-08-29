@@ -6,10 +6,7 @@ import mkcert from 'vite-plugin-mkcert';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   return {
-    plugins: [
-      vue(),
-      mode === 'development' && mkcert(),
-    ],
+    plugins: [vue(), mode === 'development' && mkcert()],
 
     server: {
       open: true,
