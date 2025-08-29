@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button, Checkbox, InputText, Message, Select, SelectButton } from 'primevue';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { marker } from '@/assets/icons';
 import FormLabel from '@/components/Form/FormLabel.vue';
@@ -10,11 +10,13 @@ import VInputNumber from '@/components/Form/VInputNumber.vue';
 import VInputText from '@/components/Form/VInputText.vue';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
 import { formRules } from '@/composables/Form/models';
-import { useThemeMode } from '@/composables/UI/useThemeMode.ts';
+import { useThemeMode, useToastService } from '@/composables/UI/';
+
+import { usePosts } from '@/composables/usePosts';
 import { $confirm } from '@/plugins/confirmation.ts';
 
 const { t } = useI18n();
-
+const $toast = useToastService();
 const defaultConfirm = async () => {
   const result = await $confirm.default({ title: 'Confirmation title', subtitle: `Are you sure to do smth? ${t('hello')}` });
   if (result) {
@@ -24,17 +26,14 @@ const defaultConfirm = async () => {
     console.log('Do smth after reject.');
   }
 };
-
 const infoConfirm = async () => {
   await $confirm.info({ title: 'Info confirmation', subtitle: 'Info confirmation subtitle' });
   console.log('After button click. Info');
 };
-
 const successConfirm = async () => {
   await $confirm.success({ title: 'Success confirm', subtitle: 'Success confirmation subtitle' });
   console.log('After button click. Success');
 };
-
 const errorConfirm = async () => {
   await $confirm.error({ title: 'Error confirm', subtitle: 'Error confirmation subtitle' });
   console.log('After button click. Error');
@@ -42,7 +41,7 @@ const errorConfirm = async () => {
 
 const severities = ['error', 'secondary', 'info', 'success', 'warn', 'contrast'];
 
-const loading = ref(true);
+const buttonLoading = ref(true);
 
 const text = ref('');
 const text2 = ref('');
@@ -63,6 +62,11 @@ const handleSubmit = () => {
 };
 
 const { modeModel, modes } = useThemeMode();
+const { loading, postsError, getPosts } = usePosts();
+
+onMounted(() => {
+  getPosts();
+});
 </script>
 
 <template>
@@ -77,6 +81,11 @@ const { modeModel, modes } = useThemeMode();
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" />
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="large" />
     </div>
+
+    <div class="font-18-b">
+      {{ loading ? 'Posts is loading...' : postsError ? 'Posts server error' : 'Posts have been loaded' }}
+    </div>
+
     <hr>
 
     <Button label="Primary small" size="small" />
@@ -88,16 +97,24 @@ const { modeModel, modes } = useThemeMode();
     <Button label="Secondary large" size="large" severity="secondary" />
 
     <hr>
+
     <Button label="svg icon" :icon="marker" severity="success" />
     <Button label="Icon no-fill" :icon="marker" icon-pos="right" severity="info" icon-class="no-fill" />
     <Button label="Icon fill-red" :icon="marker" icon-pos="top" severity="secondary" icon-color="red" />
-    <Button label="Loading test" severity="help" :loading="loading" />
+    <Button label="Loading test" severity="help" :loading="buttonLoading" />
+
     <hr>
 
     <Button label="Default confirmation" severity="warn" @click="defaultConfirm" />
     <Button label="Info confirmation" severity="info" @click="infoConfirm" />
     <Button label="Success confirmation" severity="success" @click="successConfirm" />
     <Button label="Error confirmation" severity="danger" @click="errorConfirm" />
+
+    <Button label="Success toast" severity="success" @click="$toast.success('success toast')" />
+    <Button label="Info toast" severity="info" @click="$toast.info('info toast')" />
+    <Button label="Warning toast" severity="warn" @click="$toast.warning('warning toast')" />
+    <Button label="Error toast" severity="danger" @click="$toast.error('error toast')" />
+
     <hr>
 
     <Message v-for="type in severities" :key="type" :severity="type">

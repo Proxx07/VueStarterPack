@@ -1,5 +1,6 @@
 import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 import { createApp } from 'vue';
 
 import App from '@/App.vue';
@@ -18,6 +19,7 @@ app
   .use(pinia)
   .use(router)
   .use(PrimeVue, options)
+  .use(ToastService)
   .mount('#app');
 
 app.config.globalProperties.$tl = i18n.global.t;

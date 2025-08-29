@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Toast } from 'primevue';
 import ConfirmationModal from '@/components/UI/confirmations/ConfirmationModal.vue';
 import { useConfirmationsStore } from '@/store/confirmations';
 
@@ -15,4 +16,6 @@ const confirmationsStore = useConfirmationsStore();
       <component :is="confirmation.component" />
     </ConfirmationModal>
   </div>
+
+  <Toast />
 </template>

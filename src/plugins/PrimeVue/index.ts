@@ -3,6 +3,7 @@ import type { PrimeVueConfiguration } from 'primevue/config';
 import type { RendererElement, RendererNode, VNode } from 'vue';
 import { definePreset } from '@primeuix/styled';
 import Aura from '@primeuix/themes/aura';
+import { toastConfig, toastPt } from '@/plugins/PrimeVue/toast';
 import { buttonConfig, buttonPt } from './button';
 import { cardConfig } from './card';
 import { checkboxConfig } from './checkbox';
@@ -134,9 +135,9 @@ const customPreset = definePreset(Aura, {
         dark: inputNumberConfig(),
       },
     },
-
     checkbox: checkboxConfig(),
     message: messageConfig(),
+    toast: toastConfig(),
   },
 });
 
@@ -162,6 +163,8 @@ export const options: PrimeVueConfiguration = {
     select(instance) {
       return selectPt(instance);
     },
+
+    toast: toastPt(),
   },
 
   theme: {

@@ -15,4 +15,11 @@ export default {
   mouthOpened: 'Iltimos, oq‘zingizni yoping.',
   smiling: 'Iltimos, kulmang.',
   ok: 'Yaxshi, harakatsiz turing!',
+
+  toast: {
+    success: 'Muvaffaqiyat',
+    error: 'Xato',
+    warn: 'Ogohlantirish',
+    info: 'Ma\'lumot',
+  },
 };

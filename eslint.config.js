@@ -9,6 +9,8 @@ export default antfu({
     'no-unused-vars': 'warn',
     'vue/custom-event-name-casing': ['error', 'kebab-case'],
     'antfu/top-level-function': 'off',
+    'no-restricted-imports': ['error', { patterns: ['**/composables/UI/*', '../UI/*', './UI/*'] },
+    ],
   },
 
   ignores: ['node_modules', '*.d.ts', '.nuxt', '.output', '.gitlab-ci.yml', 'Dockerfile', '*.d.ts', '**/*.d.ts'],

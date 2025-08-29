@@ -15,4 +15,11 @@ export default {
   mouthOpened: 'Please, close your mouth.',
   smiling: 'Please, don\'t smile',
   ok: 'Great, stay still!',
+
+  toast: {
+    success: 'Success',
+    error: 'Error',
+    warn: 'Warning',
+    info: 'Information',
+  },
 };
