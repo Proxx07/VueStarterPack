@@ -73,8 +73,9 @@ onMounted(() => {
   <div class="page">
     <div style="display: flex; align-items: center; gap: 1rem; width: 100%;">
       <LangSwitcher />
-      {{ $tl('page.example', { name: '123' }) }}
-      <h1> {{ $tl('hello') }} </h1>
+      {{ t('page.example', { name: '123' }) }}
+
+      <h1> {{ t('hello') }} </h1>
 
       <div style="margin-left: auto" />
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="small" />

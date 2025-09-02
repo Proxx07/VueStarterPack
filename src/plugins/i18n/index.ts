@@ -6,8 +6,10 @@ import uz from './locales/uz';
 import { DEFAULT_LANGUAGE, getCurrentLocale } from './models';
 
 export const i18n = createI18n<[MessageSchema], 'ru-RU' | 'en-US' | 'uz-UZ'>({
+  legacy: false,
   locale: getCurrentLocale(),
   fallbackLocale: DEFAULT_LANGUAGE,
+  globalInjection: false,
   messages: {
     'ru-RU': ru,
     'en-US': en,

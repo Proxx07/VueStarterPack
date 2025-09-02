@@ -32,12 +32,13 @@ declare module 'vue-i18n' {
 }
 
 interface GlobalProperties {
+  /*
   $tl: <
     Key extends string, DefinedLocaleMessage extends RemovedIndexResources<DefineLocaleMessage> = RemovedIndexResources<DefineLocaleMessage>,
     Keys = IsEmptyObject<DefinedLocaleMessage> extends false ? JsonPaths<{ [K in keyof DefinedLocaleMessage]: DefinedLocaleMessage[K] }> : never,
     ResourceKeys extends Keys = IsNever<Keys> extends false ? Keys : never,
   >(key: Key | ResourceKeys, params?: Record<string, string | number>) => string,
-
+  */
   $formRules: typeof formRules,
 }
 
