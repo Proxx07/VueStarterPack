@@ -10,7 +10,7 @@ export const checkboxConfig = (): CheckboxDesignTokens => {
     },
     icon: {
       size: '1.2rem',
-      checkedColor: 'var(--black)',
+      checkedColor: 'var(--primary-surface-color)',
     },
   };
 };

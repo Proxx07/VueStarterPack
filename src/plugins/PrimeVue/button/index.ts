@@ -10,16 +10,20 @@ export const buttonConfig = (): ButtonDesignTokens => {
       sm: { paddingX: '.9rem', paddingY: '.9rem' },
       lg: { paddingX: '1.6rem', paddingY: '2rem' },
       label: { fontWeight: 'unset' },
+
       primary: {
-        color: 'var(--black)',
-        hoverColor: 'var(--black)',
-        activeColor: 'var(--black)',
+        background: 'var(--primary-500)',
+        hoverBackground: 'var(--primary-400)',
+        activeBackground: 'var(--primary-600)',
+        color: 'var(--primary-surface-color)',
+        hoverColor: 'var(--primary-surface-color)',
+        activeColor: 'var(--primary-surface-color)',
       },
 
       secondary: {
-        color: 'var(--black)',
-        hoverColor: 'var(--black)',
-        activeColor: 'var(--black)',
+        color: 'var(--secondary-surface-color)',
+        hoverColor: 'var(--secondary-surface-color)',
+        activeColor: 'var(--secondary-surface-color)',
         background: 'var(--secondary-500)',
         hoverBackground: 'var(--secondary-600)',
         activeBackground: 'var(--secondary-700)',

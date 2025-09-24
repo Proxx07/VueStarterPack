@@ -1,13 +1,12 @@
 import type { ToastMessageOptions } from 'primevue/toast';
+import { defineStore } from 'pinia';
 import { useToast } from 'primevue/usetoast';
-import { useI18n } from 'vue-i18n';
+import { i18n } from '@/plugins/i18n';
+import { getCurrentLocale, smsErrorsEnum } from '@/plugins/i18n/models';
 
 type ToastsSeverity = Exclude<ToastMessageOptions['severity'], undefined>;
 
-let toastService: ReturnType<typeof createToastService>;
-
-function createToastService() {
-  const { t } = useI18n();
+export const useToastStore = defineStore('toast', () => {
   const toast = useToast();
   const life = 4000;
 
@@ -19,8 +18,11 @@ function createToastService() {
   };
 
   const fireToast = (severity: ToastsSeverity, title: string, text?: string) => {
-    const summary = text ? title : t(defaultTitles[severity]!);
-    const detail = text || title;
+    const summary = text ? title : i18n.global.t(defaultTitles[severity]!);
+    const message = text || title;
+
+    const detail = (message && smsErrorsEnum[message]) ? smsErrorsEnum[message][getCurrentLocale()] : message;
+
     toast.add({ severity, summary, detail, life });
   };
 
@@ -30,9 +32,4 @@ function createToastService() {
     warning: (title: string, text?: string) => fireToast('warn', title, text),
     error: (title: string, text?: string) => fireToast('error', title, text),
   };
-}
-
-export function useToastService() {
-  if (!toastService) toastService = createToastService();
-  return toastService;
-}
+});

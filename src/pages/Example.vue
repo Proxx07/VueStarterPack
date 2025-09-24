@@ -1,42 +1,43 @@
 <script setup lang="ts">
 import { Button, Checkbox, InputText, Message, Select, SelectButton } from 'primevue';
-import { computed, onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { marker } from '@/assets/icons';
+import { useRouter } from 'vue-router';
+import { backArrow, marker } from '@/assets/icons';
 import FormLabel from '@/components/Form/FormLabel.vue';
 import VForm from '@/components/Form/VForm.vue';
 import VInputMask from '@/components/Form/VInputMask.vue';
 import VInputNumber from '@/components/Form/VInputNumber.vue';
 import VInputText from '@/components/Form/VInputText.vue';
 import LangSwitcher from '@/components/UI/LangSwitcher.vue';
-import { formRules } from '@/composables/Form/models';
-import { useThemeMode, useToastService } from '@/composables/UI/';
 
-import { usePosts } from '@/composables/usePosts';
+import { useThemeMode } from '@/composables/UI/';
 import { $confirm } from '@/plugins/confirmation.ts';
+import { useToastStore } from '@/store/toastsStore.ts';
 
 const { t } = useI18n();
-const $toast = useToastService();
+const $toast = useToastStore();
+const $router = useRouter();
 const defaultConfirm = async () => {
-  const result = await $confirm.default({ title: 'Confirmation title', subtitle: `Are you sure to do smth? ${t('hello')}` });
+  const result = await $confirm.default({ title: 'toast.warn', subtitle: 'confirmations.warning' });
   if (result) {
-    console.log('Do smth after accept.');
+    $toast.info('Do smth after accept.');
   }
   else {
-    console.log('Do smth after reject.');
+    $toast.warning('Do smth after reject.');
   }
 };
 const infoConfirm = async () => {
-  await $confirm.info({ title: 'Info confirmation', subtitle: 'Info confirmation subtitle' });
-  console.log('After button click. Info');
+  await $confirm.info({ title: 'toast.info', subtitle: 'confirmations.warning' });
+  $toast.info('After button click. Info');
 };
 const successConfirm = async () => {
-  await $confirm.success({ title: 'Success confirm', subtitle: 'Success confirmation subtitle' });
-  console.log('After button click. Success');
+  await $confirm.success({ title: 'toast.success', subtitle: 'confirmations.warning' });
+  $toast.success('After button click. Success');
 };
 const errorConfirm = async () => {
-  await $confirm.error({ title: 'Error confirm', subtitle: 'Error confirmation subtitle' });
-  console.log('After button click. Error');
+  await $confirm.error({ title: 'toast.error', subtitle: 'confirmations.warning' });
+  $toast.error('After button click. Error');
 };
 
 const severities = ['error', 'secondary', 'info', 'success', 'warn', 'contrast'];
@@ -45,37 +46,25 @@ const buttonLoading = ref(true);
 
 const text = ref('');
 const text2 = ref('');
-const text3 = ref('');
 const numberFieldValue = ref(0);
 const maskFieldValue = ref('');
 const maskFieldValue2 = ref('');
 
 const secondField = ref(false);
-const setThirdFieldRequired = ref(false);
-const thirdFieldRules = computed(() => {
-  if (!setThirdFieldRequired.value) return [];
-  return [formRules.required()];
-});
 
 const handleSubmit = () => {
-  $confirm.success({ title: 'Success', subtitle: 'Form submitted' });
+  $confirm.success({ title: 'toast.success', subtitle: 'confirmations.warning' });
 };
 
 const { modeModel, modes } = useThemeMode();
-const { loading, postsError, getPosts } = usePosts();
-
-onMounted(() => {
-  getPosts();
-});
 </script>
 
 <template>
   <div class="page">
     <div style="display: flex; align-items: center; gap: 1rem; width: 100%;">
       <LangSwitcher />
-      {{ t('page.example', { name: '123' }) }}
 
-      <h1> {{ t('hello') }} </h1>
+      <h1> {{ t('toast.info') }} </h1>
 
       <div style="margin-left: auto" />
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="small" />
@@ -83,8 +72,17 @@ onMounted(() => {
       <SelectButton v-model="modeModel" :options="modes" :allow-empty="false" size="large" />
     </div>
 
-    <div class="font-18-b">
-      {{ loading ? 'Posts is loading...' : postsError ? 'Posts server error' : 'Posts have been loaded' }}
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <pre style="background: var(--black); color: var(--white); padding: 4rem; border-radius: var(--radius-l); font-size: 16px">
+        {{ `const getPosts = async () => {
+            const { data, error } = await $axios.get('/posts', body, { loading });
+            posts.value = error ? [] : data;
+            postsError.value = Boolean(error);
+            console.log(posts.value);
+        };` }}
+      </pre>
+
+      <Button label="Check router transition" size="large" @click="$router.push({ name: 'status', params: { type: 'approved' } })" />
     </div>
 
     <hr>
@@ -102,7 +100,11 @@ onMounted(() => {
     <Button label="svg icon" :icon="marker" severity="success" />
     <Button label="Icon no-fill" :icon="marker" icon-pos="right" severity="info" icon-class="no-fill" />
     <Button label="Icon fill-red" :icon="marker" icon-pos="top" severity="secondary" icon-color="red" />
+
+    <Button :icon="backArrow" severity="primary" text />
+
     <Button label="Loading test" severity="help" :loading="buttonLoading" />
+    <Button label="Loading test" severity="help" />
 
     <hr>
 
@@ -154,12 +156,6 @@ onMounted(() => {
               Second field!
             </div>
           </template>
-
-          <VInputText
-            v-model="text3"
-            placeholder="Text-field-3"
-            :rules="thirdFieldRules"
-          />
         </div>
 
         <div class="field-group">
@@ -183,23 +179,20 @@ onMounted(() => {
         <div class="field-group">
           <VInputMask
             v-model="maskFieldValue"
-            mask="99-99-99"
+            mask="##-##-##"
             placeholder="Numbers with mask"
+            :pt="{ root: { inputmode: 'numeric' } }"
             :rules="[$formRules.required()]"
           />
           <VInputMask
             v-model="maskFieldValue2"
-            mask="aa-aa-aa"
+            mask="@@-@@-AA"
             placeholder="Letters with mask"
           />
         </div>
         <div class="field-group">
           <FormLabel label="Show second field" for="check-1">
             <Checkbox v-model="secondField" binary input-id="check-1" />
-          </FormLabel>
-
-          <FormLabel label="Set third field required" for="check-2">
-            <Checkbox v-model="setThirdFieldRequired" binary input-id="check-2" />
           </FormLabel>
         </div>
       </div>
@@ -215,6 +208,7 @@ onMounted(() => {
   gap: 1rem;
   align-items: center;
   padding: 1rem;
+  min-height: 100vh;
   hr {
     width: 100%;
   }

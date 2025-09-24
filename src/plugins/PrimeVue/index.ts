@@ -1,8 +1,11 @@
+import type { BadgeProps } from 'primevue';
 import type { ButtonProps } from 'primevue/button';
 import type { PrimeVueConfiguration } from 'primevue/config';
 import type { RendererElement, RendererNode, VNode } from 'vue';
 import { definePreset } from '@primeuix/styled';
 import Aura from '@primeuix/themes/aura';
+import { badgeConfig, badgePt } from '@/plugins/PrimeVue/badge';
+import { skeletonConfig } from '@/plugins/PrimeVue/skeleton';
 import { toastConfig, toastPt } from '@/plugins/PrimeVue/toast';
 import { buttonConfig, buttonPt } from './button';
 import { cardConfig } from './card';
@@ -97,9 +100,14 @@ const customPreset = definePreset(Aura, {
     colorScheme: {
       light: {
         formField: {
-          background: 'var(--secondary-500)',
+          background: 'var(--white)',
           color: 'var(--black)',
+          disabledColor: 'var(--black)',
+          disabledBackground: 'var(--secondary-400)',
           placeholderColor: '{surface.800}',
+          borderColor: 'transparent',
+          hoverBorderColor: 'var(--primary-200)',
+          focusBorderColor: 'var(--primary-500)',
         },
       },
 
@@ -107,7 +115,12 @@ const customPreset = definePreset(Aura, {
         formField: {
           background: '{zinc.900}',
           color: 'var(--white)',
+          disabledColor: 'var(--white)',
+          disabledBackground: '{zinc.800}',
           placeholderColor: '{surface.600}',
+          borderColor: 'transparent',
+          hoverBorderColor: 'var(--primary-800)',
+          focusBorderColor: 'var(--primary-500)',
         },
       },
     },
@@ -123,7 +136,15 @@ const customPreset = definePreset(Aura, {
       },
     },
 
+    badge: badgeConfig(),
+
     card: cardConfig(),
+
+    skeleton: {
+      colorScheme: {
+        light: skeletonConfig(),
+      },
+    },
 
     select: selectConfig(),
 
@@ -149,6 +170,10 @@ export const options: PrimeVueConfiguration = {
       return buttonPt(instance);
     },
 
+    badge(instance: VNode<RendererNode, RendererElement, BadgeProps>) {
+      return badgePt(instance);
+    },
+
     inputtext(instance) {
       return inputFieldPt(instance);
     },
@@ -160,6 +185,7 @@ export const options: PrimeVueConfiguration = {
     inputnumber(instance) {
       return inputNumberPt(instance);
     },
+
     select(instance) {
       return selectPt(instance);
     },

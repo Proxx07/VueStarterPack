@@ -30,6 +30,7 @@
     --font-24-b: normal 600 2.4rem/1 var(--primary-font-b);
     --font-26-b: normal 600 2.6rem/1 var(--primary-font-b);
     --font-28-b: normal 600 2.8rem/1 var(--primary-font-b);
+    --font-30-b: normal 600 3.0rem/1 var(--primary-font-b);
 
 
     /* ================== other ================== */
@@ -41,6 +42,8 @@
 
     --transition-fast: all 0.3s;
     --transition-slow: all 0.4s;
+
+    --page-transition-time: all 0.5s;
 
     /* ================== other ================== */
 }
@@ -117,7 +120,40 @@ html {
     font: var(--font-28-b) !important;
 }
 
+.font-30-b {
+    font: var(--font-28-b) !important;
+}
+
+
+.text-left {
+    text-align: left;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+
 .w-full {
     width: 100%;
     max-width: 100%;
+}
+
+.mt-auto {
+    margin-top: auto;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.colspan-2 {
+    grid-column: span 2;
 }

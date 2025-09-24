@@ -1,4 +1,4 @@
 export * from './useFetchStates.ts';
 export * from './useThemeMode';
-export * from './useToastService';
+export * from './useTimer';
 export * from './useToggle';

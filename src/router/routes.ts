@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
+
   {
     path: '/',
     name: 'main',
@@ -8,6 +9,12 @@ const routes: RouteRecordRaw[] = [
     meta: {
       layout: 'Default',
     },
+  },
+
+  {
+    path: '/status/:type',
+    name: 'status',
+    component: () => import('@/pages/StatusPage.vue'),
   },
 
   {

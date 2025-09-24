@@ -3,7 +3,7 @@ import type { ComputedRef } from 'vue';
 import { provide } from 'vue';
 
 import { ADD_FORM_VALIDATION_RULE, IS_VALIDATED } from '@/composables/Form/types';
-import { useToggle } from '@/composables/UI/useToggle.ts';
+import { useToggle } from '@/composables/UI';
 
 const emit = defineEmits<{
   (e: 'submit-form'): void

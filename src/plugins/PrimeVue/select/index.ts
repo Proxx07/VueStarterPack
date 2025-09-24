@@ -16,8 +16,8 @@ export const selectConfig = (): SelectDesignTokens => {
         option: {
           color: 'var(--black)',
           focusColor: 'var(--black)',
-          selectedColor: 'var(--black)',
-          selectedFocusColor: 'var(--black)',
+          selectedColor: 'var(--primary-surface-color)',
+          selectedFocusColor: 'var(--primary-surface-color)',
           focusBackground: 'var(--secondary-300)',
           selectedBackground: 'var(--primary-500)',
           selectedFocusBackground: 'var(--primary-500)',
