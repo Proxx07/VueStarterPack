@@ -57,6 +57,9 @@ export default {
 
     accept: 'Ок',
     reject: 'Отменить',
+
+    delete: 'Deletion',
+    deleteDescription: 'Are you sure you want to delete?',
   },
 
   statuses: {

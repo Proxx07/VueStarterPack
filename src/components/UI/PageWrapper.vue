@@ -65,8 +65,6 @@ const searchQuery = computed<string>({
 
 <style scoped lang="scss">
 .page-wrapper {
-  color: v-bind(color);
-  background: v-bind(bg);
   position: relative;
   display: flex;
   flex-direction: column;

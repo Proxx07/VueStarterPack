@@ -41,9 +41,6 @@ export const usePosts = () => {
       subtitle: 'confirmations.deleteDescription',
     });
 
-
-    
-
     if (!ok) return;
     list.value = list.value.filter(post => post.id !== id);
   };

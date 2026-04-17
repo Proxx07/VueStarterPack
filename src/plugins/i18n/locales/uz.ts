@@ -57,6 +57,9 @@ export default {
 
     accept: 'Ok',
     reject: 'Bekor qilish',
+
+    delete: 'Deletion',
+    deleteDescription: 'Are you sure you want to delete?',
   },
 
   rules: {
