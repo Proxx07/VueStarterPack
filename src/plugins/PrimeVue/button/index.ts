@@ -42,6 +42,12 @@ export const buttonConfig = (): ButtonDesignTokens => {
         activeBackground: 'color-mix(in srgb,currentColor,transparent 90%)',
       },
     },
+    outlined: {
+      secondary: {
+        color: 'var(--text-color)',
+        borderColor: 'var(--secondary-600)',
+      },
+    },
   };
 };
 

@@ -49,7 +49,7 @@ export const dataTablePt = (): DataTablePassThroughOptions => {
         class: 'font-18-b',
       },
       bodyCell: {
-        class: 'sssssssssssss',
+        class: 'ssssssssssss',
       },
     },
   };

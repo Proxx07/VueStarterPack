@@ -7,6 +7,10 @@ export const tabsConfig = (): TabsDesignTokens => {
       borderWidth: '0',
     },
 
+    tab: {
+      borderWidth: '0',
+    },
+
     colorScheme: {
       light: {
         tab: {

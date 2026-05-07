@@ -23,13 +23,12 @@ body {
   min-height: 100dvh;
 }
 
-html:has(.face-id-page) {
-  overflow: hidden;
-}
 
-.page-wrapper + .page-wrapper {
+main > div + div {
   position: absolute !important;
   inset: 0 !important;
+  left: var(--main-pl) !important;
+  top: var(--main-pt) !important;
 }
 
 

@@ -79,8 +79,6 @@
 
 .route-transition-leave-to {
   opacity: 0;
-  position: absolute !important;
-  inset: 0;
   transform: translateY(-10%);
 }
 

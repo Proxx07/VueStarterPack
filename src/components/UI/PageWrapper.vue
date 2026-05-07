@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core';
 import { Button, InputGroup, InputGroupAddon, InputText } from 'primevue';
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import { search as searchIcon } from '@/assets/icons';
 import VIcon from './VIcon.vue';
 
@@ -28,6 +28,8 @@ const searchQuery = computed<string>({
     commitSearch(val);
   },
 });
+
+const slots = useSlots();
 </script>
 
 <template>
@@ -57,7 +59,7 @@ const searchQuery = computed<string>({
       <slot />
     </div>
 
-    <div class="page-footer">
+    <div v-if="slots['page-footer']" class="page-footer">
       <slot name="page-footer" />
     </div>
   </div>
@@ -89,10 +91,16 @@ const searchQuery = computed<string>({
   overflow: auto;
   overflow-x: hidden;
   padding-right: 2rem;
+  padding-bottom: 8rem;
 }
 .page-footer {
-  padding-top: 1rem;
-  padding-right: 2rem;
-  padding-bottom: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 2rem;
+  margin-left: -2rem;
+  background: color-mix(in srgb,var(--site-bg),transparent 50%);
+  backdrop-filter: blur(10px);
 }
 </style>

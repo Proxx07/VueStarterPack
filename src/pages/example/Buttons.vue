@@ -32,6 +32,36 @@ const { modeModel, modes } = useThemeMode();
 
       <Button label="Loading test" severity="help" loading />
     </div>
+
+    <div class="components">
+      <Button label="Outlined primary" variant="outlined" size="small" />
+      <Button label="Outlined primary" variant="outlined" />
+      <Button label="Outlined primary" variant="outlined" size="large" />
+      <Button label="Outlined secondary" variant="outlined" severity="secondary" size="small" />
+      <Button label="Outlined secondary" variant="outlined" severity="secondary" />
+      <Button label="Outlined secondary" variant="outlined" severity="secondary" size="large" />
+      <Button variant="outlined" severity="secondary" :icon="marker" icon-color="currentColor" size="small" />
+      <Button variant="outlined" severity="secondary" :icon="marker" icon-color="green" />
+      <Button variant="outlined" severity="secondary" :icon="marker" icon-color="currentColor" size="large" />
+    </div>
+
+    <div class="components">
+      <Button :icon="backArrow" severity="primary" size="large" raised variant="outlined" />
+      <Button :icon="backArrow" severity="secondary" size="large" raised variant="outlined" />
+      <Button :icon="backArrow" severity="info" size="large" raised variant="outlined" />
+      <Button :icon="backArrow" severity="success" size="large" raised variant="outlined" />
+      <Button :icon="backArrow" severity="danger" size="large" raised variant="outlined" />
+      <Button :icon="backArrow" severity="help" size="large" raised variant="outlined" />
+    </div>
+
+    <div class="components">
+      <Button label="Ghost" severity="primary" size="large" raised variant="outlined" />
+      <Button label="Ghost" severity="secondary" size="large" raised variant="outlined" />
+      <Button label="Ghost" severity="info" size="large" raised variant="outlined" />
+      <Button label="Ghost" severity="success" size="large" raised variant="outlined" />
+      <Button label="Ghost" severity="danger" size="large" raised variant="outlined" />
+      <Button label="Ghost" severity="help" size="large" raised variant="outlined" />
+    </div>
   </div>
 </template>
 

@@ -27,6 +27,10 @@ import Navigation from '@/layouts/UI/Navigation.vue';
 
 <style scoped lang="scss">
 .app-inner {
+  --inner-bg: var(--secondary-500);
+  [class='app-dark'] & {
+    --inner-bg: var(--p-zinc-900);
+  }
   display: grid;
   grid-template-columns: 31rem auto;
   grid-template-rows: 100dvh;
@@ -35,20 +39,15 @@ import Navigation from '@/layouts/UI/Navigation.vue';
   overflow: hidden;
   max-height: 100dvh;
   min-height: 100dvh;
-  transition: var(--transition-slow);
+  background: var(--inner-bg);
 }
 .name {
   font: var(--font-28-b);
 }
 
 .aside {
-  --aside-bg: var(--secondary-500);
-  [class='app-dark'] & {
-    --aside-bg: var(--p-zinc-900);
-  }
   display: flex;
   flex-direction: column;
-  background: var(--aside-bg);
   &__top,
   &__bottom {
     display: flex;
@@ -66,9 +65,13 @@ import Navigation from '@/layouts/UI/Navigation.vue';
 }
 
 main {
-  margin-left: 2rem;
-  margin-top: 1.6rem;
+  --main-pl: 2rem;
+  --main-pt: 1.6rem;
+  padding-top: var(--main-pt);
+  padding-left: var(--main-pl);
   position: relative;
   overflow: hidden;
+  background: var(--site-bg);
+  border-radius: var(--radius-l) 0 0 var(--radius-l);
 }
 </style>

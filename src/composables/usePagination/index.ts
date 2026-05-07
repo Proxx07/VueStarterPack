@@ -18,7 +18,7 @@ export const usePagination = (saveToQuery: boolean = false) => {
 
   const listCounts = computed<IListPaginationCount>(() => {
     return {
-      current: page.value * limit.value,
+      current: Math.min(page.value * limit.value, totalCount.value),
       total: totalCount.value,
     };
   });

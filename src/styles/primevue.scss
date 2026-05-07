@@ -26,6 +26,15 @@ body {
     }
   }
 
+  .p-button.p-button-outlined.p-button-raised {
+    border: 0;
+    box-shadow: none;
+    background: color-mix(in srgb,currentColor,transparent 80%);
+    &:hover {
+      background: color-mix(in srgb,currentColor,transparent 70%);
+    }
+  }
+
   .p-button-loading-icon {
     width: auto;
     max-width: 100%;
@@ -35,6 +44,10 @@ body {
     width: auto !important;
     padding: .7rem;
     font: var(--font-16-r) !important;
+    &.p-button-sm {
+      padding: .6rem;
+      font: var(--font-12-r) !important;
+    }
     &.p-button-lg {
       padding: 1rem;
       font: var(--font-20-r) !important;
